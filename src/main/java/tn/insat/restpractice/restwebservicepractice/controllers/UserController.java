@@ -1,5 +1,8 @@
 package tn.insat.restpractice.restwebservicepractice.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 
@@ -9,20 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import tn.insat.restpractice.restwebservicepractice.domain.User;
 import tn.insat.restpractice.restwebservicepractice.exceptions.UserNotFoundException;
 import tn.insat.restpractice.restwebservicepractice.services.UserService;
-import static  org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
-@Controller
+@RestController
 public class UserController {
 	
 @Autowired	
