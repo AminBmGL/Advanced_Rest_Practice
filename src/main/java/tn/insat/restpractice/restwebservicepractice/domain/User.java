@@ -18,7 +18,7 @@ public class User {
 	private String name;
 
 	@Past
-	@ApiModelProperty(notes = "Birth Date should be in the Past")
+	@ApiModelProperty(notes = "Birth Date should be in the Past") 
 	private Date birthDate;
 	
 	
