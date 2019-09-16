@@ -5,8 +5,9 @@ import java.util.Date;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
+@JsonFilter("UserFilter")
 public class UserFiltred {
 
 	private Integer id;
@@ -14,7 +15,7 @@ public class UserFiltred {
 	@Size(min=2,message="Name should have 2 carachters at least")
 	private String name;
 
-	@JsonIgnore
+	
 	@Past
 	private Date birthDate;
 	
