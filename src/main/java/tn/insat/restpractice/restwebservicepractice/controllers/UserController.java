@@ -5,6 +5,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import tn.insat.restpractice.restwebservicepractice.domain.Post;
 import tn.insat.restpractice.restwebservicepractice.domain.User;
 import tn.insat.restpractice.restwebservicepractice.exceptions.UserNotFoundException;
+import tn.insat.restpractice.restwebservicepractice.repositories.PostRepository;
 import tn.insat.restpractice.restwebservicepractice.services.UserService;
 
 @RestController
@@ -30,6 +33,8 @@ public class UserController {
 @Autowired	
 UserService userService;
 
+@Autowired
+PostRepository postRepository;
 
 @GetMapping("/users")
 public List<User> getAllUsers(){
@@ -70,5 +75,38 @@ public void deleteUser(@PathVariable int id){
 	 userService.deleteUser(id);
 }	
 
+
+@GetMapping("/users/{id}/posts")
+public List<Post> retrieveAllUsers(@PathVariable int id) {
+	User user = userService.getUserDetails(id);
+	
+	if(user==null) {
+		throw new UserNotFoundException("User not found with id-" + id);
+	}
+	
+	return user.getPosts();
+}
+
+
+@PostMapping("/jpa/users/{id}/posts")
+public ResponseEntity<Object> createPost(@PathVariable int id, @RequestBody Post post) {
+	
+	User user = userService.getUserDetails(id);
+	
+	if(user==null) {
+		throw new UserNotFoundException("User not found with id-" + id);
+	}
+
+	
+	post.setUser(user);
+	
+	postRepository.save(post);
+	
+	URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId())
+			.toUri();
+
+	return ResponseEntity.created(location).build();
+
+}
 
 }
