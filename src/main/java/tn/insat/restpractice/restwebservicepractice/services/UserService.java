@@ -2,28 +2,34 @@ package tn.insat.restpractice.restwebservicepractice.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.insat.restpractice.restwebservicepractice.domain.User;
+import tn.insat.restpractice.restwebservicepractice.repositories.UserRepository;
 
 @Service
 public class UserService {
 
+	@Autowired
+	private UserRepository userRepository;
+	
 	public List<User> getAllUsers(){
-		return null;
+		return userRepository.findAll();
 	}
 	
 	public User getUserDetails(int id){
-		return null;
-	}
+		 return userRepository.findById(id).get();
+		 
+	 }
 	
 	public User addUser(User user){
-		return null;
+		return userRepository.save(user);
 	}
 	
 	
-	public User deleteUser(int id){
-		return null;
+	public void deleteUser(int id){
+		 userRepository.deleteById(id);
 	}
 	
 	}

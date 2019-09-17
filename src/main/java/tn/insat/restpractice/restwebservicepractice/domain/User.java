@@ -2,15 +2,21 @@ package tn.insat.restpractice.restwebservicepractice.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@Entity
 @ApiModel(value="User Details", description="Contains all details of a user")
 public class User {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 
 	@Size(min=2,message="Name should have 2 carachters at least")

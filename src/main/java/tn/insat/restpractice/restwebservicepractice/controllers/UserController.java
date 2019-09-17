@@ -30,15 +30,15 @@ public class UserController {
 @Autowired	
 UserService userService;
 
+
 @GetMapping("/users")
 public List<User> getAllUsers(){
-	return null;
-	
+	return userService.getAllUsers();
 }
 
 @GetMapping("/users/{id}")
 public Resource<User> getUser(@PathVariable int id){
-	User user =userService.getUserDetails(id);
+	User user = userService.getUserDetails(id);
 	
 	if(user==null) {
 		throw new UserNotFoundException("User Not found with Id"+id);
@@ -66,11 +66,9 @@ public ResponseEntity<Object> addUser(@Valid @RequestBody User user) {
 
 
 @DeleteMapping("/users/{id}")
-public User deleteUser(@PathVariable int id){
-	
-	//if user not found throw the usernot found exception
-	return null;
-	
-}
+public void deleteUser(@PathVariable int id){
+	 userService.deleteUser(id);
+}	
+
 
 }
